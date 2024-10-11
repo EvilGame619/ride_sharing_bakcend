@@ -36,6 +36,8 @@ public class Ride {
     @ManyToOne(fetch = FetchType.LAZY)
     private Driver driver;
 
+    private String otp;
+
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
