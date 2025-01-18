@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 public class RideDTO {
     private Long rideID;
 
-    private Point pickUpLocation;
+    private PointDTO pickUpLocation;
 
 
-    private Point dropOffLocation;
+    private PointDTO dropOffLocation;
 
 
     private LocalDateTime requestedTime;
@@ -32,6 +32,7 @@ public class RideDTO {
 
     private DriverDTO driver;
 
+    private String otp;
 
     private PaymentMethod paymentMethod;
 

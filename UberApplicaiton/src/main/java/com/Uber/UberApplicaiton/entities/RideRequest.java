@@ -1,5 +1,6 @@
 package com.Uber.UberApplicaiton.entities;
 
+import com.Uber.UberApplicaiton.dto.PointDTO;
 import com.Uber.UberApplicaiton.entities.enums.PaymentMethod;
 import com.Uber.UberApplicaiton.entities.enums.RideRequestStatus;
 import jakarta.persistence.*;
@@ -35,4 +36,6 @@ public class RideRequest {
 
     @Enumerated(EnumType.STRING)
     private RideRequestStatus rideRequestStatus;
+
+    private Double fare;
 }
