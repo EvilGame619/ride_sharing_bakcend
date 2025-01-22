@@ -1,8 +1,8 @@
 package com.Uber.UberApplicaiton.entities.enums;
 
 public enum RideStatus {
-    NOT_STARTED,
+    CONFIRMED,
     ONGOING,
     CANCELLED,
-    COMPLETED;
+    ENDED;
 }

@@ -1,6 +1,5 @@
 package com.Uber.UberApplicaiton.strategies;
 
-import com.Uber.UberApplicaiton.dto.RideRequestDTO;
 import com.Uber.UberApplicaiton.entities.RideRequest;
 
 public interface RideFareCalculationStrategy {

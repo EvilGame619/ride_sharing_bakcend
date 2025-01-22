@@ -1,10 +1,7 @@
 package com.Uber.UberApplicaiton.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Rider {
 
     @Id

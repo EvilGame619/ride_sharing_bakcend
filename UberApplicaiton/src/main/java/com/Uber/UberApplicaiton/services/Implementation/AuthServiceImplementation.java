@@ -12,6 +12,7 @@ import com.Uber.UberApplicaiton.services.RiderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -30,10 +31,12 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
+    @Transactional
     public UserDTO signup(SignupDTO signupDTO) {
 
-        userRepository.findByEmail(signupDTO.getEmail()).orElseThrow(()->
-                new RuntimeConflictException("Cannot signup, user already exist by email: "+signupDTO.getEmail()));
+        if (userRepository.findByEmail(signupDTO.getEmail()).isPresent()) {
+            throw new RuntimeConflictException("Cannot signup, user already exists by email: " + signupDTO.getEmail());
+        }
 
         User newUser = mapper.map(signupDTO, User.class);
         newUser.setRoles(Set.of(Role.RIDER));

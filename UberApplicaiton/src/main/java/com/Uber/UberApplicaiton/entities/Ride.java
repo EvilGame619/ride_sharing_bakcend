@@ -1,7 +1,6 @@
 package com.Uber.UberApplicaiton.entities;
 
 import com.Uber.UberApplicaiton.entities.enums.PaymentMethod;
-import com.Uber.UberApplicaiton.entities.enums.RideRequestStatus;
 import com.Uber.UberApplicaiton.entities.enums.RideStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 public class Ride {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

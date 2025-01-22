@@ -1,6 +1,5 @@
 package com.Uber.UberApplicaiton.entities;
 
-import com.Uber.UberApplicaiton.dto.PointDTO;
 import com.Uber.UberApplicaiton.entities.enums.PaymentMethod;
 import com.Uber.UberApplicaiton.entities.enums.RideRequestStatus;
 import jakarta.persistence.*;
@@ -14,10 +13,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+
 public class RideRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rideRequestID;
+    private Long id;
 
     @Column(columnDefinition = "Geometry(Point, 4326)")
     private Point pickUpLocation;
