@@ -20,6 +20,7 @@ public class RideDTO {
     private PointDTO dropOffLocation;
 
 
+
     private LocalDateTime requestedTime;
 
 
@@ -38,4 +39,6 @@ public class RideDTO {
     private Double fare;
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;
+
+
 }

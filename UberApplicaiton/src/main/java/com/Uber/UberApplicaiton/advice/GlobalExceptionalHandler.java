@@ -47,4 +47,10 @@ public class GlobalExceptionalHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(PaymentFailedException.class)
+    public ResponseEntity<ApiError> paymentFailed(Exception e){
+        ApiError apiError = new ApiError(HttpStatus.PAYMENT_REQUIRED, e.getLocalizedMessage());
+        return new ResponseEntity<>(apiError, HttpStatus.PAYMENT_REQUIRED);
+    }
+
 }

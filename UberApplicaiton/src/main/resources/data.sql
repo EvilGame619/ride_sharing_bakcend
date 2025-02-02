@@ -59,6 +59,12 @@ INSERT INTO user_roles (user_userid, roles) VALUES
 INSERT INTO rider (riderid, user_id, rating) VALUES
 (1,1,4.8);
 
+
+INSERT INTO wallet (walletid, user_userid, balance) VALUES
+(1,1,1500),
+(2,2,2000);
+
+
 INSERT INTO driver (driverid, user_id, rating, available, current_location) VALUES
 
 (2, 2, 4.5, true, ST_GeomFromText('POINT(77.2205 28.7048)', 4326)),

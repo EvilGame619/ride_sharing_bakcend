@@ -21,7 +21,7 @@ public class Payment {
     private Long paymentID;
 
     @Enumerated(value = EnumType.STRING)
-    private PaymentMethod method;
+    private PaymentMethod paymentMethod;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Ride ride;

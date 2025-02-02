@@ -26,7 +26,7 @@ public class WalletTransactions {
     @Enumerated(value = EnumType.STRING)
     private TransactionMethod transactionMethod;
 
-    @OneToOne
+    @ManyToOne
     private Ride ride;
 
     private String transactionID;

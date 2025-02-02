@@ -1,9 +1,9 @@
 package com.Uber.UberApplicaiton.services.Implementation;
 
-import com.Uber.UberApplicaiton.dto.RideRequestDTO;
 import com.Uber.UberApplicaiton.entities.Driver;
 import com.Uber.UberApplicaiton.entities.Ride;
 import com.Uber.UberApplicaiton.entities.RideRequest;
+import com.Uber.UberApplicaiton.entities.Rider;
 import com.Uber.UberApplicaiton.entities.enums.RideRequestStatus;
 import com.Uber.UberApplicaiton.entities.enums.RideStatus;
 import com.Uber.UberApplicaiton.exceptions.ResourceNotFoundException;
@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -32,10 +33,7 @@ public class RideServiceImplementation implements RideService {
         return null;
     }
 
-    @Override
-    public void matchWithDrivers(RideRequestDTO rideRequestDTO) {
 
-    }
 
     @Override
     public Ride createNewRide(RideRequest rideRequest, Driver driver) {
@@ -55,13 +53,18 @@ public class RideServiceImplementation implements RideService {
     }
 
     @Override
-    public Page<Ride> getAllRidesOfDriver(Long driverID, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfDriver(Driver driver, PageRequest pageRequest) {
+        return rideRepository.findByDriver(driver, pageRequest);
     }
 
     @Override
-    public Page<Ride> getAllRidesOfRider(Long riderID, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfRider(Rider rider, PageRequest pageRequest) {
+        return rideRepository.findByRider(rider, pageRequest);
+    }
+
+    @Override
+    public List<Ride> getListOfRidesOfDriver(Long driverID) {
+        return rideRepository.findAllRidesOfDriver(driverID);
     }
 
     @Override
