@@ -89,7 +89,7 @@ public class DriverServiceImplementation implements DriverService {
     }
 
     @Override
-    public RiderDTO rateRider(Long rideID, Integer rating) {
+    public RiderDTO rateRider(Long rideID, Double rating) {
         return null;
     }
 
@@ -130,5 +130,10 @@ public class DriverServiceImplementation implements DriverService {
     @Override
     public Driver getDriverByID(Long driverID) {
         return driverRepository.findById(driverID).orElseThrow(()-> new ResourceNotFoundException("Driver not found with id: "+driverID));
+    }
+
+    @Override
+    public Driver createNewDriver(Driver driver) {
+        return driverRepository.save(driver);
     }
 }

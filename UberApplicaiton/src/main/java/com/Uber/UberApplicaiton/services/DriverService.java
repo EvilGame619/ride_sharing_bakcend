@@ -17,7 +17,7 @@ public interface DriverService {
 
     RideDTO acceptRide(Long rideRequestID);
 
-    RiderDTO rateRider(Long rideID, Integer rating);
+    RiderDTO rateRider(Long rideID, Double rating);
 
     DriverDTO getMyProfile();
 
@@ -30,4 +30,6 @@ public interface DriverService {
     void updateDriverAvailability(Driver driver, Boolean available);
 
     Driver getDriverByID(Long driverID);
+
+    Driver createNewDriver(Driver driver);
 }

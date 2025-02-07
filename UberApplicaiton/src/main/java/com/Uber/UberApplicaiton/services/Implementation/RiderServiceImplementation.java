@@ -69,7 +69,7 @@ public class RiderServiceImplementation implements RiderService {
 
     @Transactional
     @Override
-    public DriverDTO rateDriver(Long rideID, Integer rating) {
+    public DriverDTO rateDriver(Long rideID, Double rating) {
         Ride ride = rideService.getRideById(rideID);
         Driver driver = ride.getDriver();
         Double oldRating = driver.getRating();

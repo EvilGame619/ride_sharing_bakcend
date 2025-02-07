@@ -8,6 +8,9 @@ import org.locationtech.jts.geom.Point;
 @Entity
 @Getter
 @Setter
+@Table(indexes = {
+        @Index(name = "idx_vehicle_id", columnList = "vehicleID")
+})
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

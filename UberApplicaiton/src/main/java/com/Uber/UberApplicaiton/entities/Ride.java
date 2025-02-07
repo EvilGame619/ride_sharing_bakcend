@@ -15,7 +15,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
+@Table(indexes = {
+        @Index(name = "idx_rider", columnList = "rider_riderid"),
+        @Index(name = "idx_driver", columnList = "driver_driverid")
+})
 public class Ride {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,9 @@ public class Ride {
     private Driver driver;
 
     private String otp;
+
+    private Double riderRating;
+    private Double driverRating;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;

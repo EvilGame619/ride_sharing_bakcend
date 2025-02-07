@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(indexes = {
+        @Index(name = "idx_wallet_transaction_wallet", columnList = "wallet_walletid"),
+        @Index(name = "idx_wallet_transaction_ride", columnList = "ride_rideid")
+})
 public class WalletTransactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
