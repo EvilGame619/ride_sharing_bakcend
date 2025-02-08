@@ -3,19 +3,13 @@ package com.Uber.UberApplicaiton.services.Implementation;
 import com.Uber.UberApplicaiton.dto.DriverDTO;
 import com.Uber.UberApplicaiton.dto.RideDTO;
 import com.Uber.UberApplicaiton.dto.RiderDTO;
-import com.Uber.UberApplicaiton.entities.Driver;
-import com.Uber.UberApplicaiton.entities.Payment;
-import com.Uber.UberApplicaiton.entities.Ride;
-import com.Uber.UberApplicaiton.entities.RideRequest;
+import com.Uber.UberApplicaiton.entities.*;
 import com.Uber.UberApplicaiton.entities.enums.PaymentStatus;
 import com.Uber.UberApplicaiton.entities.enums.RideRequestStatus;
 import com.Uber.UberApplicaiton.entities.enums.RideStatus;
 import com.Uber.UberApplicaiton.exceptions.*;
 import com.Uber.UberApplicaiton.repository.DriverRepository;
-import com.Uber.UberApplicaiton.services.DriverService;
-import com.Uber.UberApplicaiton.services.PaymentService;
-import com.Uber.UberApplicaiton.services.RideRequestService;
-import com.Uber.UberApplicaiton.services.RideService;
+import com.Uber.UberApplicaiton.services.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -35,6 +29,7 @@ public class DriverServiceImplementation implements DriverService {
     private final RideService rideService;
     private final ModelMapper mapper;
     private final PaymentService paymentService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -56,6 +51,7 @@ public class DriverServiceImplementation implements DriverService {
         rideService.updateRideStatus(rideID, RideStatus.ONGOING);
         ride.setStartedAt(LocalDateTime.now());
         paymentService.createNewPayment(ride);
+        ratingService.createRating(ride);
         return mapper.map(ride, RideDTO.class);
     }
     @Transactional
@@ -90,7 +86,11 @@ public class DriverServiceImplementation implements DriverService {
 
     @Override
     public RiderDTO rateRider(Long rideID, Double rating) {
-        return null;
+        Ride ride = rideService.findRideByID(rideID);
+        Driver driver = getCurrentDriver();
+        if(ride.getDriver()!=driver) throw new RuntimeException("Driver cannot rate rider");
+        if(!ride.getRideStatus().equals(RideStatus.ENDED)) throw new RideRequestStatusException("Cannot rate now!");
+        return ratingService.rateRider(ride, rating);
     }
 
     @Override

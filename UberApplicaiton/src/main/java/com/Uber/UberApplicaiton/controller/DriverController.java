@@ -37,9 +37,9 @@ public class DriverController {
         return new ResponseEntity<>(driverService.cancelRide(rideID), HttpStatus.OK);
     }
 
-    @PostMapping("/rateRider")
-    public ResponseEntity<RiderDTO> rateRider(@RequestBody RatingDTO ratingDTO){
-        return new ResponseEntity<>(driverService.rateRider(ratingDTO.getRideID(), ratingDTO.getRating()),HttpStatus.OK);
+    @PutMapping("/rateRider/{rideID}")
+    public ResponseEntity<RiderDTO> rateRider(@RequestBody RatingDTO ratingDTO, @PathVariable Long rideID){
+        return new ResponseEntity<>(driverService.rateRider(rideID, ratingDTO.getRating()),HttpStatus.OK);
     }
 
     @GetMapping("/profile")

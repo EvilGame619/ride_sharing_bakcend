@@ -12,6 +12,7 @@ import com.Uber.UberApplicaiton.exceptions.RideRequestStatusException;
 import com.Uber.UberApplicaiton.repository.RideRequestRepository;
 import com.Uber.UberApplicaiton.repository.RiderRepository;
 import com.Uber.UberApplicaiton.services.DriverService;
+import com.Uber.UberApplicaiton.services.RatingService;
 import com.Uber.UberApplicaiton.services.RideService;
 import com.Uber.UberApplicaiton.services.RiderService;
 import com.Uber.UberApplicaiton.strategies.RideStrategyManager;
@@ -34,6 +35,7 @@ public class RiderServiceImplementation implements RiderService {
     private final RiderRepository riderRepository;
     private final RideService rideService;
     private final DriverService driverService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -70,13 +72,11 @@ public class RiderServiceImplementation implements RiderService {
     @Transactional
     @Override
     public DriverDTO rateDriver(Long rideID, Double rating) {
-        Ride ride = rideService.getRideById(rideID);
-        Driver driver = ride.getDriver();
-        Double oldRating = driver.getRating();
-        Double newRating = oldRating + rating;
-        Integer numberOfRides = driverService.getDriverRidesList(driver.getDriverID());
-        driver.setRating(newRating/numberOfRides);
-        return mapper.map(driver, DriverDTO.class);
+        Ride ride = rideService.findRideByID(rideID);
+        Rider rider = getCurrentRider();
+        if(ride.getRider()!=rider) throw new RuntimeException("Driver cannot rate rider");
+        if(!ride.getRideStatus().equals(RideStatus.ENDED)) throw new RideRequestStatusException("Cannot rate now!");
+        return ratingService.rateDriver(ride, rating);
     }
 
     @Transactional

@@ -41,9 +41,6 @@ public class Ride {
 
     private String otp;
 
-    private Double riderRating;
-    private Double driverRating;
-
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
