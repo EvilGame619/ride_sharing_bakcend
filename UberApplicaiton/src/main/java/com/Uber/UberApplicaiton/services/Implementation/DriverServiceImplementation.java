@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -118,8 +119,9 @@ public class DriverServiceImplementation implements DriverService {
 
     @Override
     public Driver getCurrentDriver(){
-        return driverRepository.findById(2L)
-                .orElseThrow(()-> new ResourceNotFoundException("Driver not found with ID: "+"2"));
+        User user =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return driverRepository.findByUser(user)
+                .orElseThrow(()-> new ResourceNotFoundException("Driver not found with email: "+ user.getEmail()));
     }
 
     @Override

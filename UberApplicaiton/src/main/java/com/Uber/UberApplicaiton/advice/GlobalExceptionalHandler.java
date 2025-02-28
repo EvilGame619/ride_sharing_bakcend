@@ -2,10 +2,14 @@ package com.Uber.UberApplicaiton.advice;
 
 
 import com.Uber.UberApplicaiton.exceptions.*;
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.naming.AuthenticationException;
+import java.nio.file.AccessDeniedException;
 
 @RestControllerAdvice
 
@@ -51,6 +55,23 @@ public class GlobalExceptionalHandler {
     public ResponseEntity<ApiError> paymentFailed(Exception e){
         ApiError apiError = new ApiError(HttpStatus.PAYMENT_REQUIRED, e.getLocalizedMessage());
         return new ResponseEntity<>(apiError, HttpStatus.PAYMENT_REQUIRED);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiError> handleAuthenticationException(Exception e){
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, e.getLocalizedMessage());
+        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiError> jwtException(Exception e){
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, e.getLocalizedMessage());
+        return new ResponseEntity<>(apiError,HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDeniedException(Exception e){
+        ApiError apiError= new ApiError(HttpStatus.FORBIDDEN, e.getLocalizedMessage());
+        return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
     }
 
 }
