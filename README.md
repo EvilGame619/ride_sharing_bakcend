@@ -62,5 +62,5 @@ This is a backend system for a ride-sharing platform, inspired by apps like Uber
 ### 🚀 Installation
 
 ```bash
-git clone https://github.com/yourusername/RideSharing-Backend.git
-cd RideSharing-Backend
+git clone https://github.com/EvilGame619/ride_sharing_backend.git
+cd ride_sharing_backend
